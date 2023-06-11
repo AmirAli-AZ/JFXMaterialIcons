@@ -6,6 +6,9 @@ JFXMaterialIcons makes easier to use Google material font icons in javafx.
 
 ```java
 var icon = new MaterialIcon("code");
+icon.setIconStyle(Style.ROUND);
+icon.setIconSize(150);
+icon.setFill(Color.GRAY);
 ```
 
 and you can add it as a node
@@ -15,8 +18,8 @@ and you can add it as a node
 ```css
 .material-icon {
     -material-icon: "code";
-    -material-icon-size: 150;
     -material-icon-style: round;
-    -material-icon-color: gray;
+    -fx-font-size: 150px;
+    -fx-fill: gray;
 }
 ```

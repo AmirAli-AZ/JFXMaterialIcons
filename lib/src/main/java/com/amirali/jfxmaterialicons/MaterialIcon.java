@@ -1,26 +1,43 @@
 package com.amirali.jfxmaterialicons;
 
-import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.css.*;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MaterialIcon extends Control {
+public class MaterialIcon extends Text {
 
     public MaterialIcon() {
-        getStyleClass().add("material-icon");
+        init();
     }
 
     public MaterialIcon(String icon) {
+        init();
         setIcon(icon);
+    }
+
+    private void init() {
         getStyleClass().add("material-icon");
+
+        setTextAlignment(TextAlignment.CENTER);
+        setFont(Utils.getFont(getIconStyle(), getFont().getSize()));
+
+        textProperty().bind(
+                Bindings.createStringBinding(() -> {
+                    var codepoint = Utils.getUnicode(getIcon(), getIconStyle());
+                    if (codepoint == null)
+                        return null;
+                    return Character.toString(codepoint.unicode());
+                }, iconProperty(), iconStyleProperty())
+        );
+
+        iconStyleProperty().addListener((observable, oldValue, newValue) -> setFont(Utils.getFont(newValue, getFont().getSize())));
     }
 
     private final CssMetaData<MaterialIcon, String> iconCssMetaData = new CssMetaData<>("-material-icon", StyleConverter.getStringConverter()) {
@@ -38,20 +55,6 @@ public class MaterialIcon extends Control {
 
     private final StyleableStringProperty iconProperty = new SimpleStyleableStringProperty(iconCssMetaData, this, "iconProperty");
 
-    private final CssMetaData<MaterialIcon, Number> iconSizeCssMetaData = new CssMetaData<>("-material-icon-size", StyleConverter.getSizeConverter(), 30) {
-        @Override
-        public boolean isSettable(MaterialIcon styleable) {
-            return !styleable.iconSizeProperty.isBound();
-        }
-
-        @Override
-        public StyleableProperty<Number> getStyleableProperty(MaterialIcon styleable) {
-            return styleable.iconSizeProperty;
-        }
-    };
-
-    private final StyleableIntegerProperty iconSizeProperty = new SimpleStyleableIntegerProperty(iconSizeCssMetaData, this, "iconSizeProperty", 30);
-
     private final CssMetaData<MaterialIcon, Style> iconStyleCssMetaData = new CssMetaData<>("-material-icon-style", StyleConverter.getEnumConverter(Style.class), Style.REGULAR) {
         @Override
         public boolean isSettable(MaterialIcon styleable) {
@@ -66,20 +69,6 @@ public class MaterialIcon extends Control {
 
     private final StyleableObjectProperty<Style> iconStyleProperty = new SimpleStyleableObjectProperty<>(iconStyleCssMetaData, this, "iconStyleProperty", Style.REGULAR);
 
-    private final CssMetaData<MaterialIcon, Color> iconColorCssMetaData = new CssMetaData<>("-material-icon-color", StyleConverter.getColorConverter(), Color.BLACK) {
-        @Override
-        public boolean isSettable(MaterialIcon styleable) {
-            return !styleable.iconStyleProperty.isBound();
-        }
-
-        @Override
-        public StyleableProperty<Color> getStyleableProperty(MaterialIcon styleable) {
-            return styleable.iconColorProperty;
-        }
-    };
-
-    private final StyleableObjectProperty<Color> iconColorProperty = new SimpleStyleableObjectProperty<>(iconColorCssMetaData, this, "iconColorProperty", Color.BLACK);
-
     public void setIcon(String icon) {
         iconProperty.set(icon);
     }
@@ -90,18 +79,6 @@ public class MaterialIcon extends Control {
 
     public ReadOnlyStringProperty iconProperty() {
         return iconProperty;
-    }
-
-    public void setIconSize(int size) {
-        iconSizeProperty.set(size);
-    }
-
-    public int getIconSize() {
-        return iconSizeProperty.get();
-    }
-
-    public ReadOnlyIntegerProperty iconSizeProperty() {
-        return iconSizeProperty;
     }
 
     public void setIconStyle(Style style) {
@@ -116,27 +93,14 @@ public class MaterialIcon extends Control {
         return iconStyleProperty;
     }
 
-    public void setIconColor(Color color) {
-        iconColorProperty.set(color);
-    }
-
-    public Color getIconColor() {
-        return iconColorProperty.get();
-    }
-
-    public ReadOnlyObjectProperty<Color> iconColorProperty() {
-        return iconColorProperty;
+    public void setIconSize(double size) {
+        setFont(Utils.getFont(getIconStyle(), size));
     }
 
     @Override
-    protected List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
-        var metaData = new ArrayList<>(super.getControlCssMetaData());
-        Collections.addAll(metaData, iconCssMetaData, iconSizeCssMetaData, iconStyleCssMetaData, iconColorCssMetaData);
+    public List<CssMetaData<? extends Styleable, ?>> getCssMetaData() {
+        var metaData = new ArrayList<>(super.getCssMetaData());
+        Collections.addAll(metaData, iconCssMetaData, iconStyleCssMetaData);
         return metaData;
-    }
-
-    @Override
-    protected Skin<?> createDefaultSkin() {
-        return new MaterialIconSkin(this);
     }
 }
