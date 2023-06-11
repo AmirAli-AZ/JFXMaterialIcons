@@ -1,0 +1,30 @@
+plugins {
+    id 'java-library'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+sourceCompatibility = '17'
+version = '0.0.1'
+group = 'com.amirali'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+}
+
+javafx {
+    version = '17.0.7'
+    modules = ['javafx.controls']
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName = 'jfxmaterialicons'
+}
