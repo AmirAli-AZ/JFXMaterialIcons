@@ -50,21 +50,21 @@ public final class Utils {
 
     private static String getCodePointPath(Style style) {
         return switch (style) {
-            case ROUND -> "/MaterialIconsRound-Regular.codepoints";
-            case SHARP -> "/MaterialIconsSharp-Regular.codepoints";
-            case OUTLINED -> "/MaterialIconsOutlined-Regular.codepoints";
+            case ROUND -> "/codepoints/MaterialIconsRound-Regular.codepoints";
+            case SHARP -> "/codepoints/MaterialIconsSharp-Regular.codepoints";
+            case OUTLINED -> "/codepoints/MaterialIconsOutlined-Regular.codepoints";
 
-            default -> "/MaterialIcons-Regular.codepoints";
+            default -> "/codepoints/MaterialIcons-Regular.codepoints";
         };
     }
 
     public static Font getFont(Style style, double size) {
         return switch (style) {
-            case ROUND -> Font.loadFont(Utils.class.getResourceAsStream("/MaterialIconsRound-Regular.otf"), size);
-            case SHARP -> Font.loadFont(Utils.class.getResourceAsStream("/MaterialIconsSharp-Regular.otf"), size);
-            case OUTLINED -> Font.loadFont(Utils.class.getResourceAsStream("/MaterialIconsOutlined-Regular.otf"), size);
+            case ROUND -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsRound-Regular.otf"), size);
+            case SHARP -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsSharp-Regular.otf"), size);
+            case OUTLINED -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsOutlined-Regular.otf"), size);
 
-            default -> Font.loadFont(Utils.class.getResourceAsStream("/MaterialIcons-Regular.ttf"), size);
+            default -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIcons-Regular.ttf"), size);
         };
     }
 }
