@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.css.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -14,12 +15,34 @@ import java.util.List;
 public class MaterialIcon extends Text {
 
     public MaterialIcon() {
+        super();
         init();
     }
 
     public MaterialIcon(String icon) {
-        init();
+        this();
         setIcon(icon);
+    }
+
+    public MaterialIcon(String icon, Style iconStyle) {
+        this();
+        setIcon(icon);
+        setIconStyle(iconStyle);
+    }
+
+    public MaterialIcon(String icon, Style iconStyle, double iconSize) {
+        this();
+        setIcon(icon);
+        setIconStyle(iconStyle);
+        setIconSize(iconSize);
+    }
+
+    public MaterialIcon(String icon, Style iconStyle, double iconSize, Paint fill) {
+        this();
+        setIcon(icon);
+        setIconStyle(iconStyle);
+        setIconSize(iconSize);
+        setFill(fill);
     }
 
     private void init() {
