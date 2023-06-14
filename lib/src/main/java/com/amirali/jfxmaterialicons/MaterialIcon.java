@@ -1,8 +1,8 @@
 package com.amirali.jfxmaterialicons;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.css.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -28,6 +28,18 @@ public class MaterialIcon extends Text {
         this();
         setIcon(icon);
         setIconStyle(iconStyle);
+    }
+
+    public MaterialIcon(String icon, double iconSize) {
+        this();
+        setIcon(icon);
+        setIconSize(iconSize);
+    }
+
+    public MaterialIcon(String icon, Paint fill) {
+        this();
+        setIcon(icon);
+        setFill(fill);
     }
 
     public MaterialIcon(String icon, Style iconStyle, double iconSize) {
@@ -100,7 +112,7 @@ public class MaterialIcon extends Text {
         return iconProperty.get();
     }
 
-    public ReadOnlyStringProperty iconProperty() {
+    public StringProperty iconProperty() {
         return iconProperty;
     }
 
@@ -112,7 +124,7 @@ public class MaterialIcon extends Text {
         return iconStyleProperty.get();
     }
 
-    public ReadOnlyObjectProperty<Style> iconStyleProperty() {
+    public ObjectProperty<Style> iconStyleProperty() {
         return iconStyleProperty;
     }
 
