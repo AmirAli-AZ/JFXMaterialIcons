@@ -58,13 +58,23 @@ public final class Utils {
         };
     }
 
-    public static Font getFont(Style style, double size) {
+    public static Font loadFont(Style style, double size) {
         return switch (style) {
             case ROUND -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsRound-Regular.otf"), size);
             case SHARP -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsSharp-Regular.otf"), size);
             case OUTLINED -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIconsOutlined-Regular.otf"), size);
 
             default -> Font.loadFont(Utils.class.getResourceAsStream("/fontIcons/MaterialIcons-Regular.ttf"), size);
+        };
+    }
+
+    public static String getFamily(Style style) {
+        return switch (style) {
+            case ROUND -> "Material Icons Round";
+            case OUTLINED -> "Material Icons Outlined";
+            case SHARP -> "Material Icons Sharp";
+
+            default -> "Material Icons";
         };
     }
 }
