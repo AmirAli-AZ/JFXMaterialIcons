@@ -19,7 +19,7 @@ and you can add it as a node
 .material-icon {
     -material-icon: "code";
     -material-icon-style: round;
-    -fx-font-size: 150px;
+    -material-icon-size: 150px;
     -fx-fill: gray;
 }
 ```

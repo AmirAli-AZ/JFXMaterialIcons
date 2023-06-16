@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.amirali.jfxmaterialicons.Utils.*;
+
 public class MaterialIcon extends Text {
 
     static {
@@ -79,8 +81,8 @@ public class MaterialIcon extends Text {
 
         textProperty().bind(
                 Bindings.createStringBinding(() -> {
-                    var codepoint = Utils.getUnicode(getIcon(), getIconStyle());
-                    setStyle(normalizeStyle(getStyle(), "-fx-font-family", "\"" + Utils.getFamily(getIconStyle()) + "\""));
+                    var codepoint = getUnicode(getIcon(), getIconStyle());
+                    setStyle(normalizeStyle(getStyle(), "-fx-font-family", "\"" + getFamily(getIconStyle()) + "\""));
                     if (codepoint == null)
                         return null;
                     return Character.toString(codepoint.unicode());
@@ -88,7 +90,7 @@ public class MaterialIcon extends Text {
         );
 
         iconSizeProperty().addListener((observable, oldValue, newValue) -> {
-            setFont(Font.font(Utils.getFamily(getIconStyle()), newValue.doubleValue()));
+            setFont(Font.font(getFamily(getIconStyle()), newValue.doubleValue()));
             setStyle(normalizeStyle(getStyle(), "-fx-font-size", newValue.intValue() + "px"));
         });
 
