@@ -72,7 +72,7 @@ public class MaterialIcon extends Text {
                 setIconSize(size);
         });
 
-        iconColorProperty.bindBidirectional(fillProperty());
+        iconColorProperty().bindBidirectional(fillProperty());
     }
 
     private String normalizeStyle(String style, String key, String value) {
