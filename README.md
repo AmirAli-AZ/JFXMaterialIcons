@@ -20,6 +20,6 @@ and you can add it as a node
     -material-icon: "code";
     -material-icon-style: round;
     -material-icon-size: 150px;
-    -fx-fill: gray;
+    -material-icon-color: gray;
 }
 ```

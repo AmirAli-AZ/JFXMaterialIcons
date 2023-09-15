@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.css.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -26,6 +27,7 @@ public class MaterialIcon extends Text {
     private final StyleableStringProperty iconProperty = new SimpleStyleableStringProperty(StyleableProperties.ICON_CSS_META_DATA, this, "iconProperty");
     private final StyleableObjectProperty<Style> iconStyleProperty = new SimpleStyleableObjectProperty<>(StyleableProperties.ICON_STYLE_CSS_META_DATA, this, "iconStyleProperty", Style.REGULAR);
     private final StyleableIntegerProperty iconSizeProperty = new SimpleStyleableIntegerProperty(StyleableProperties.ICON_SIZE_CSS_META_DATA, this, "iconSizeProperty", 8);
+    private final StyleableObjectProperty<Paint> iconColorProperty = new SimpleStyleableObjectProperty<>(StyleableProperties.ICON_COLOR_CSS_META_DATA, this, "iconColorProperty", Color.BLACK);
 
     public MaterialIcon() {
         super();
@@ -99,6 +101,8 @@ public class MaterialIcon extends Text {
             if (size != getIconSize())
                 setIconSize(size);
         });
+
+        iconColorProperty.bindBidirectional(fillProperty());
     }
 
     private String normalizeStyle(String style, String key, String value) {
@@ -147,6 +151,18 @@ public class MaterialIcon extends Text {
         return iconSizeProperty;
     }
 
+    public ObjectProperty<Paint> iconColorProperty() {
+        return iconColorProperty;
+    }
+
+    public Paint getIconColor() {
+        return iconColorProperty.get();
+    }
+
+    public void setIconColor(Paint paint) {
+        iconColorProperty.set(paint);
+    }
+
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getCssMetaData() {
         return getClassCssMetaData();
@@ -190,6 +206,18 @@ public class MaterialIcon extends Text {
             }
         };
 
+        private static final CssMetaData<MaterialIcon, Paint> ICON_COLOR_CSS_META_DATA = new CssMetaData<MaterialIcon, Paint>("-material-icon-color", StyleConverter.getPaintConverter(), Color.BLACK) {
+            @Override
+            public boolean isSettable(MaterialIcon styleable) {
+                return !styleable.iconColorProperty.isBound();
+            }
+
+            @Override
+            public StyleableProperty<Paint> getStyleableProperty(MaterialIcon styleable) {
+                return styleable.iconColorProperty;
+            }
+        };
+
         private final static List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
 
         static {
@@ -197,6 +225,7 @@ public class MaterialIcon extends Text {
             styleables.add(ICON_CSS_META_DATA);
             styleables.add(ICON_STYLE_CSS_META_DATA);
             styleables.add(ICON_SIZE_CSS_META_DATA);
+            styleables.add(ICON_COLOR_CSS_META_DATA);
 
             STYLEABLES = Collections.unmodifiableList(styleables);
         }
