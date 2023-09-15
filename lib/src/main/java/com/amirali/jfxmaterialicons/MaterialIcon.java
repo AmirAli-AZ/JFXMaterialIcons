@@ -34,42 +34,12 @@ public class MaterialIcon extends Text {
         init();
     }
 
-    public MaterialIcon(String icon) {
-        this();
-        setIcon(icon);
-    }
-
-    public MaterialIcon(String icon, Style iconStyle) {
-        this();
-        setIcon(icon);
-        setIconStyle(iconStyle);
-    }
-
-    public MaterialIcon(String icon, int iconSize) {
-        this();
-        setIcon(icon);
-        setIconSize(iconSize);
-    }
-
-    public MaterialIcon(String icon, Paint fill) {
-        this();
-        setIcon(icon);
-        setFill(fill);
-    }
-
-    public MaterialIcon(String icon, Style iconStyle, int iconSize) {
+    public MaterialIcon(String icon, Style iconStyle, int iconSize, Paint paint) {
         this();
         setIcon(icon);
         setIconStyle(iconStyle);
         setIconSize(iconSize);
-    }
-
-    public MaterialIcon(String icon, Style iconStyle, int iconSize, Paint fill) {
-        this();
-        setIcon(icon);
-        setIconStyle(iconStyle);
-        setIconSize(iconSize);
-        setFill(fill);
+        setIconColor(paint);
     }
 
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
